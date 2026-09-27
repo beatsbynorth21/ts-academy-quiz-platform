@@ -9,6 +9,7 @@ import TakeQuiz from './pages/TakeQuiz';
 import Results from './pages/Results';
 import CreateQuiz from './pages/CreateQuiz';
 import ManageQuizzes from './pages/ManageQuizzes';
+import MyAttempts from './pages/MyAttempts';
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
           } />
           <Route path="/results" element={
             <PrivateRoute><Results /></PrivateRoute>
+          } />
+          <Route path="/my-attempts" element={
+            <PrivateRoute><MyAttempts /></PrivateRoute>
           } />
           <Route path="/admin/create-quiz" element={
             <AdminRoute><CreateQuiz /></AdminRoute>

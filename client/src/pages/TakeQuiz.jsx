@@ -39,21 +39,23 @@ export default function TakeQuiz() {
     }
   };
 
-  if (loading) return <p>Loading quiz...</p>;
-  if (error && !quiz) return <p style={{ color: 'red' }}>{error}</p>;
+  if (loading) return <p className="dim-text">Loading quiz...</p>;
+  if (error && !quiz) return <p className="error-text">{error}</p>;
   if (!quiz) return null;
 
   return (
     <div>
-      <h2>{quiz.title}</h2>
-      <p>{quiz.description}</p>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <div className="card">
+        <h2>{quiz.title}</h2>
+        <p className="dim-text">{quiz.description}</p>
+      </div>
+      {error && <p className="error-text">{error}</p>}
       <form onSubmit={handleSubmit}>
         {quiz.questions.map((q, qIndex) => (
-          <div key={qIndex} style={{ marginBottom: '1.5rem' }}>
+          <div className="card" key={qIndex}>
             <p><strong>{qIndex + 1}. {q.questionText}</strong></p>
             {q.options.map((option, oIndex) => (
-              <label key={oIndex} style={{ display: 'block' }}>
+              <label className="option-row" key={oIndex}>
                 <input
                   type="radio"
                   name={`question-${qIndex}`}
@@ -61,7 +63,7 @@ export default function TakeQuiz() {
                   onChange={() => handleSelect(qIndex, oIndex)}
                   required
                 />
-                {' '}{option}
+                {option}
               </label>
             ))}
           </div>

@@ -18,15 +18,14 @@ export default function Login() {
       login(res.data.data);
       navigate('/quizzes');
     } catch (err) {
-      console.error(err);
-      setError(`${err.message} | code: ${err.code} | response: ${JSON.stringify(err.response?.data)}`);
+      setError(err.response?.data?.message || 'Login failed');
     }
   };
 
   return (
-    <div>
+    <div className="card">
       <h2>Login</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error-text">{error}</p>}
       <form onSubmit={handleSubmit}>
         <input type="email" placeholder="Email" value={email}
           onChange={(e) => setEmail(e.target.value)} required />
@@ -34,7 +33,7 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)} required />
         <button type="submit">Login</button>
       </form>
-      <p>No account? <Link to="/register">Register</Link></p>
+      <p className="dim-text">No account? <Link to="/register">Register</Link></p>
     </div>
   );
 }

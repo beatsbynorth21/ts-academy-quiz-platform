@@ -16,29 +16,30 @@ export default function QuizList() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <p>Loading quizzes...</p>;
+  if (loading) return <p className="dim-text">Loading quizzes...</p>;
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div className="page-header">
         <h2>Quizzes</h2>
-        <button onClick={logout}>Logout ({user?.name})</button>
+        <button className="secondary" onClick={logout}>Logout ({user?.name})</button>
       </div>
-      {user?.role === 'admin' && (
-        <p><Link to="/admin/manage-quizzes">Manage quizzes (admin)</Link></p>
-      )}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {quizzes.length === 0 && !error && <p>No quizzes available yet.</p>}
-      <ul>
-        {quizzes.map((quiz) => (
-          <li key={quiz._id} style={{ marginBottom: '1rem' }}>
-            <h3>{quiz.title}</h3>
-            <p>{quiz.description}</p>
-            <p>{quiz.questions.length} questions</p>
-            <Link to={`/quizzes/${quiz._id}`}>Take Quiz</Link>
-          </li>
-        ))}
-      </ul>
+      <div className="nav-links">
+        <Link to="/my-attempts">My Attempts</Link>
+        {user?.role === 'admin' && (
+          <Link to="/admin/manage-quizzes">Manage quizzes (admin)</Link>
+        )}
+      </div>
+      {error && <p className="error-text">{error}</p>}
+      {quizzes.length === 0 && !error && <p className="dim-text">No quizzes available yet.</p>}
+      {quizzes.map((quiz) => (
+        <div className="card" key={quiz._id}>
+          <h3>{quiz.title}</h3>
+          <p className="dim-text">{quiz.description}</p>
+          <p className="dim-text">{quiz.questions.length} questions</p>
+          <Link to={`/quizzes/${quiz._id}`}>Take Quiz →</Link>
+        </div>
+      ))}
     </div>
   );
 }

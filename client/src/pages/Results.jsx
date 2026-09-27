@@ -6,17 +6,19 @@ export default function Results() {
 
   if (!result) {
     return (
-      <div>
-        <p>No results to show.</p>
+      <div className="card">
+        <p className="dim-text">No results to show.</p>
         <Link to="/quizzes">Back to quizzes</Link>
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="card">
       <h2>Results</h2>
-      <p>You scored {result.score} out of {result.totalQuestions}</p>
+      <p style={{ fontSize: '1.3rem' }}>
+        You scored <strong>{result.score}</strong> out of <strong>{result.totalQuestions}</strong>
+      </p>
       <Link to="/quizzes">Back to quizzes</Link>
     </div>
   );

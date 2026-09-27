@@ -19,15 +19,14 @@ export default function Register() {
       login(res.data.data);
       navigate('/quizzes');
     } catch (err) {
-      console.error(err);
-      setError(`${err.message} | code: ${err.code} | response: ${JSON.stringify(err.response?.data)}`);
+      setError(err.response?.data?.message || 'Registration failed');
     }
   };
 
   return (
-    <div>
+    <div className="card">
       <h2>Register</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error-text">{error}</p>}
       <form onSubmit={handleSubmit}>
         <input placeholder="Name" value={name}
           onChange={(e) => setName(e.target.value)} required />
@@ -37,7 +36,7 @@ export default function Register() {
           onChange={(e) => setPassword(e.target.value)} required />
         <button type="submit">Register</button>
       </form>
-      <p>Have an account? <Link to="/login">Login</Link></p>
+      <p className="dim-text">Have an account? <Link to="/login">Login</Link></p>
     </div>
   );
 }

@@ -63,7 +63,7 @@ export default function CreateQuiz() {
     setSubmitting(true);
     try {
       await api.post('/quizzes', { title, description, questions });
-      setSuccess('Quiz created! You can publish it from the list below or via the database.');
+      setSuccess('Quiz created! Publish it from Manage Quizzes.');
       setTitle('');
       setDescription('');
       setQuestions([emptyQuestion()]);
@@ -76,39 +76,39 @@ export default function CreateQuiz() {
 
   return (
     <div>
-      <h2>Create Quiz</h2>
-      <p><Link to="/quizzes">Back to quizzes</Link></p>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {success && <p style={{ color: 'green' }}>{success}</p>}
+      <div className="page-header">
+        <h2>Create Quiz</h2>
+      </div>
+      <p><Link to="/admin/manage-quizzes">← Back to manage quizzes</Link></p>
+      {error && <p className="error-text">{error}</p>}
+      {success && <p className="success-text">{success}</p>}
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="card">
           <input
             placeholder="Quiz title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
           />
-        </div>
-        <div>
           <textarea
             placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            rows={3}
           />
         </div>
 
         {questions.map((q, qIndex) => (
-          <div key={qIndex} style={{ border: '1px solid #555', padding: '1rem', margin: '1rem 0' }}>
-            <p><strong>Question {qIndex + 1}</strong></p>
+          <div className="card" key={qIndex}>
+            <p className="dim-text"><strong>Question {qIndex + 1}</strong></p>
             <input
               placeholder="Question text"
               value={q.questionText}
               onChange={(e) => updateQuestion(qIndex, 'questionText', e.target.value)}
               required
-              style={{ width: '100%' }}
             />
             {q.options.map((option, oIndex) => (
-              <div key={oIndex} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', margin: '0.25rem 0' }}>
+              <div className="option-row" key={oIndex}>
                 <input
                   type="radio"
                   name={`correct-${qIndex}`}
@@ -120,24 +120,24 @@ export default function CreateQuiz() {
                   value={option}
                   onChange={(e) => updateOption(qIndex, oIndex, e.target.value)}
                   required
-                  style={{ flex: 1 }}
+                  style={{ flex: 1, margin: 0 }}
                 />
                 {q.options.length > 2 && (
-                  <button type="button" onClick={() => removeOption(qIndex, oIndex)}>Remove</button>
+                  <button type="button" className="secondary" onClick={() => removeOption(qIndex, oIndex)}>×</button>
                 )}
               </div>
             ))}
-            <button type="button" onClick={() => addOption(qIndex)}>+ Add option</button>
+            <button type="button" className="secondary" onClick={() => addOption(qIndex)}>+ Add option</button>
             {questions.length > 1 && (
-              <div>
-                <button type="button" onClick={() => removeQuestion(qIndex)}>Remove question</button>
+              <div style={{ marginTop: '0.5rem' }}>
+                <button type="button" className="danger" onClick={() => removeQuestion(qIndex)}>Remove question</button>
               </div>
             )}
           </div>
         ))}
 
-        <button type="button" onClick={addQuestion}>+ Add question</button>
-        <div style={{ marginTop: '1rem' }}>
+        <div className="nav-links">
+          <button type="button" className="secondary" onClick={addQuestion}>+ Add question</button>
           <button type="submit" disabled={submitting}>
             {submitting ? 'Creating...' : 'Create Quiz'}
           </button>
