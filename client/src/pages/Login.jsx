@@ -23,7 +23,7 @@ export default function Login() {
   };
 
   return (
-    <div className="card">
+    <div className="auth-page"><div className="card auth-card">
       <h2>Login</h2>
       {error && <p className="error-text">{error}</p>}
       <form onSubmit={handleSubmit}>
@@ -34,6 +34,6 @@ export default function Login() {
         <button type="submit">Login</button>
       </form>
       <p className="dim-text">No account? <Link to="/register">Register</Link></p>
-    </div>
+    </div></div>
   );
 }
