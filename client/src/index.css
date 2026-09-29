@@ -172,3 +172,21 @@ form { margin-top: 0.5rem; }
 }
 .nav-links a { text-decoration: none; }
 .nav-links button { padding: 0.4rem 0.9rem; }
+
+.navbar {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding: 0.5rem 1rem;
+}
+.nav-links {
+  flex-wrap: nowrap;
+  width: 100%;
+  gap: 0.75rem;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+.nav-links button {
+  padding: 0.3rem 0.7rem;
+  font-size: 0.85rem;
+}
