@@ -33,25 +33,20 @@ export default function ManageQuizzes() {
   return (
     <div>
       <h2>Manage Quizzes</h2>
-      <p>
-        <Link to="/quizzes">Back to quizzes</Link>
-        {' | '}
-        <Link to="/admin/create-quiz">+ Create a new quiz</Link>
-      </p>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {quizzes.length === 0 && <p>No quizzes yet.</p>}
-      <ul>
+      <div>
         {quizzes.map((quiz) => (
-          <li key={quiz._id} style={{ marginBottom: '1rem' }}>
+          <div className="card" key={quiz._id}>
             <h3>{quiz.title} {quiz.published ? '(Published)' : '(Draft)'}</h3>
-            <p>{quiz.description}</p>
-            <p>{quiz.questions.length} questions</p>
+            <p className="dim-text">{quiz.description}</p>
+            <p className="dim-text">{quiz.questions.length} {quiz.questions.length === 1 ? "question" : "questions"}</p>
             <button onClick={() => togglePublish(quiz._id)}>
               {quiz.published ? 'Unpublish' : 'Publish'}
             </button>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
