@@ -10,12 +10,14 @@ import Results from './pages/Results';
 import CreateQuiz from './pages/CreateQuiz';
 import ManageQuizzes from './pages/ManageQuizzes';
 import MyAttempts from './pages/MyAttempts';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <Routes>
+        <Navbar />
+<Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/quizzes" element={
