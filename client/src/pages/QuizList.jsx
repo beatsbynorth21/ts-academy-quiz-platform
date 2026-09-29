@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api';
-import { useAuth } from '../context/AuthContext';
 
 export default function QuizList() {
   const [quizzes, setQuizzes] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
-  const { user, logout } = useAuth();
 
   useEffect(() => {
     api.get('/quizzes')
@@ -22,13 +20,6 @@ export default function QuizList() {
     <div>
       <div className="page-header">
         <h2>Quizzes</h2>
-        <button className="secondary" onClick={logout}>Logout ({user?.name})</button>
-      </div>
-      <div className="nav-links">
-        <Link to="/my-attempts">My Attempts</Link>
-        {user?.role === 'admin' && (
-          <Link to="/admin/manage-quizzes">Manage quizzes (admin)</Link>
-        )}
       </div>
       {error && <p className="error-text">{error}</p>}
       {quizzes.length === 0 && !error && <p className="dim-text">No quizzes available yet.</p>}
