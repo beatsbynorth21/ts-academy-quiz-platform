@@ -1,26 +1,62 @@
-# Quiz Platform — TS Academy Capstone (Group 57)
+# BrainRush — Quiz Platform
 
-A full-stack quiz app: create quizzes, publish them, take them, and track scores.
+*Sharpen your mind. One quiz at a time.*
 
-## Stack
+BrainRush is a full-stack quiz platform built for the TS Academy Capstone Project (Group 57). Users can register, take quizzes, see their scores, and review their attempt history. Admins can create quizzes and publish or unpublish them.
 
-- **Backend:** Node.js, Express, MongoDB (Mongoose), JWT auth, bcrypt
-- **Frontend:** React (Vite), React Router, Axios
+**Live app:** https://ts-academy-quiz-platform.vercel.app
+
+---
+
+## Features
+
+**For users**
+- Register and log in (token-based authentication)
+- Browse published quizzes
+- Take a quiz and see the score immediately
+- View past attempts in My Attempts
+
+**For admins**
+- Create new quizzes with multiple questions
+- Manage quizzes: publish or unpublish
+- Admin-only links appear in the navbar for admin accounts only
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Frontend | React (Vite), React Router |
+| Backend | Node.js, Express |
+| Database | MongoDB |
+| Auth | Bearer token (login returns a token, sent in the `Authorization` header) |
+| Hosting | Vercel (frontend) |
+
+---
 
 ## Project Structure
 
 ```
 quiz-platform/
-├── config/           # DB connection
-├── controllers/      # auth + quiz logic
-├── middleware/       # JWT auth middleware
-├── models/           # User, Quiz, Attempt schemas
-├── routes/           # Express routes
-├── server.js
-└── client/           # React frontend (Vite)
+├── client/                 # React frontend
+│   └── src/
+│       ├── components/     # Navbar, PrivateRoute, AdminRoute
+│       ├── context/        # AuthContext (user, login, logout)
+│       ├── pages/          # Login, Register, QuizList, TakeQuiz,
+│       │                   # Results, MyAttempts, CreateQuiz, ManageQuizzes
+│       └── api.js          # Axios instance
+├── config/                 # Database connection
+├── controllers/            # authController, quizController
+├── middleware/             # authMiddleware
+├── models/                 # User, Quiz, Attempt
+├── routes/                 # authRoutes, quizRoutes
+└── server.js               # Express entry point
 ```
 
-## Setup
+---
+
+## Running Locally
 
 ### 1. Clone the repo
 
@@ -29,58 +65,77 @@ git clone https://github.com/beatsbynorth21/ts-academy-quiz-platform.git
 cd ts-academy-quiz-platform
 ```
 
-### 2. Install dependencies
+### 2. Backend
 
 ```bash
 npm install
-cd client
-npm install
-cd ..
 ```
 
-### 3. Create your `.env` file
-
-In the project root, create a file named `.env` with:
+Create a `.env` file in the project root with your own values:
 
 ```
-MONGO_URI=<ask a teammate for this>
 PORT=5000
-JWT_SECRET=<ask a teammate for this>
+MONGO_URI=<your MongoDB connection string>
+JWT_SECRET=<any long random string>
 ```
 
-**Do not commit this file.** It is already in `.gitignore`.
+> Check `config/db.js` and the auth code for the exact variable names your version uses, and keep the real values out of GitHub.
 
-### 4. Run the backend
+Start the server:
 
 ```bash
 node server.js
 ```
 
-You should see `Server running on port 5000` and `MongoDB connected`.
-
-### 5. Run the frontend (in a separate terminal)
+### 3. Frontend
 
 ```bash
 cd client
+npm install
 npm run dev
 ```
 
-The app opens at `http://localhost:5173`.
+The frontend reads the API URL from an environment variable (see `client/src/api.js`). Point it at your running backend, for example `http://localhost:5000/api`.
 
-## Features
+---
 
-- User registration and login (JWT-based)
-- Browse and take published quizzes
-- Automatic scoring
-- Attempt history ("My Attempts")
-- Admin panel: create quizzes, publish/unpublish
+## Roles
 
-## Making Yourself an Admin
+- **User:** default role on registration.
+- **Admin:** can access `/admin/create-quiz` and `/admin/manage-quizzes`. Admins are set in the database (`role: "admin"` on the user document).
 
-New accounts default to `role: "user"`. To access the admin pages, change your user's `role` field to `"admin"` directly in MongoDB Atlas (Browse Collections → `quizplatform` → `users`).
+---
 
-## Notes for Contributors
+## Team
 
-- Pull before you start work and push often: `git pull origin main` / `git push`
-- Never commit `.env` or `node_modules`
-- If your login stops working after someone rotates `JWT_SECRET`, just log in again
+Group 57, TS Academy Capstone. 20 members:
+
+| # | Member |
+|---|--------|
+| 1 | North (Benedict Patrick) — beatsbynorth21@gmail.com |
+| 2 | F. Theophilus — femitheophilus10@gmail.com |
+| 3 | marvelousejimodok@gmail.com |
+| 4 | abdullahiadepoju23@gmail.com |
+| 5 | tessycharles35@gmail.com |
+| 6 | nestorosha90@gmail.com |
+| 7 | goldp5432@gmail.com |
+| 8 | apraise3100@gmail.com |
+| 9 | nkemetohobasi@gmail.com |
+| 10 | ajarasophie2020@gmail.com |
+| 11 | dpraise502@gmail.com |
+| 12 | artducator20@gmail.com |
+| 13 | adekoyahabeeb92@gmail.com |
+| 14 | estherconphy.98@gmail.com |
+| 15 | onunkwojoseph1@gmail.com |
+| 16 | bevelynozege@gmail.com |
+| 17 | zeelexofficial@gmail.com |
+| 18 | osodaniel.ama1@gmail.com |
+| 19 | blakecansing@gmail.com |
+| 20 | achimennanna@yahoo.com |
+
+---
+
+## Notes
+
+- Never commit `.env` or any secret keys.
+- The frontend is deployed on Vercel and redeploys automatically on every push to `main`.
