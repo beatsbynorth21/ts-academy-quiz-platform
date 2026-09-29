@@ -24,8 +24,8 @@ export default function Register() {
   };
 
   return (
-    <div className="card">
-      <h2>Register</h2>
+    <div className="auth-page"><div className="card auth-card">
+      <h1 style={{textAlign:"center",marginBottom:"0.25rem"}}>BrainRush</h1><p className="dim-text" style={{textAlign:"center",marginBottom:"1.5rem"}}>Sharpen your mind. One quiz at a time.</p><h2>Register</h2>
       {error && <p className="error-text">{error}</p>}
       <form onSubmit={handleSubmit}>
         <input placeholder="Name" value={name}
@@ -37,6 +37,6 @@ export default function Register() {
         <button type="submit">Register</button>
       </form>
       <p className="dim-text">Have an account? <Link to="/login">Login</Link></p>
-    </div>
+    </div></div>
   );
 }
