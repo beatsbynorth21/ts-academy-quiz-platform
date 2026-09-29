@@ -27,7 +27,7 @@ export default function QuizList() {
         <div className="card" key={quiz._id}>
           <h3>{quiz.title}</h3>
           <p className="dim-text">{quiz.description}</p>
-          <p className="dim-text">{quiz.questions.length} questions</p>
+          <p className="dim-text">{quiz.questions.length} {quiz.questions.length === 1 ? "question" : "questions"}</p>
           <Link to={`/quizzes/${quiz._id}`}>Take Quiz →</Link>
         </div>
       ))}
