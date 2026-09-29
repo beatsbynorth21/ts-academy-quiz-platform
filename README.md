@@ -79,8 +79,6 @@ MONGO_URI=<your MongoDB connection string>
 JWT_SECRET=<any long random string>
 ```
 
-> Check `config/db.js` and the auth code for the exact variable names your version uses, and keep the real values out of GitHub.
-
 Start the server:
 
 ```bash
@@ -95,7 +93,15 @@ npm install
 npm run dev
 ```
 
-The frontend reads the API URL from an environment variable (see `client/src/api.js`). Point it at your running backend, for example `http://localhost:5000/api`.
+The frontend reads the API URL from the `VITE_API_URL` environment variable (see `client/src/api.js`). If it isn't set, it falls back to `http://localhost:5000/api`, so local development works with no extra setup.
+
+To point it at a different backend, create `client/.env`:
+
+```
+VITE_API_URL=<your backend URL>/api
+```
+
+On Vercel, set the same `VITE_API_URL` variable in the project's Environment Variables settings.
 
 ---
 
