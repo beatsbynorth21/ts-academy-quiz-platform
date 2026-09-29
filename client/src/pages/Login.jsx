@@ -24,7 +24,7 @@ export default function Login() {
 
   return (
     <div className="auth-page"><div className="card auth-card">
-      <h2>Login</h2>
+      <h1 style={{textAlign:"center",marginBottom:"0.25rem"}}>BrainRush</h1><p className="dim-text" style={{textAlign:"center",marginBottom:"1.5rem"}}>Sharpen your mind. One quiz at a time.</p><h2>Login</h2>
       {error && <p className="error-text">{error}</p>}
       <form onSubmit={handleSubmit}>
         <input type="email" placeholder="Email" value={email}
